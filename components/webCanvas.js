@@ -52,7 +52,7 @@ export default function WebCanvas() {
     const [images, setImages] = useState([
         {image:require("../assets/images/wizduds/Wizduds-Artwork-1.png"),color:[25,139,220],name:"sky"},
         {image:require("../assets/images/wizduds/Wizduds-Artwork-2.png"),color:[255,255,255],name:"clouds"},
-        {image:require("../assets/images/wizduds/Wizduds-Artwork-3.png"),color:[],name:"ship"},
+        {image:require("../assets/images/wizduds/Wizduds-Artwork-3.png"),color:[171,112,29],name:"ship"},
         {image:require("../assets/images/wizduds/Wizduds-Artwork-4.png"),color:[],name:"logo"},
         {image:require("../assets/images/wizduds/Wizduds-Artwork-5.png"),color:[],name:"skin"},
         {image:require("../assets/images/wizduds/Wizduds-Artwork-6.png"),color:[],name:"shoes"},
@@ -107,33 +107,30 @@ export default function WebCanvas() {
             </Layer>
             {CreateLayers()}
         </Stage>
-        <View>
-            <Text style={styles.label}>{images[selectedLayer].name}</Text>
-            <Controller
-                name="company"
-                defaultValue=""
-                control={control}
-                render={({ field: { onChange, value } }) => (
-                <View style={styles.dropdownCompany}>
-                    <DropDownPicker
-                    style={styles.dropdown}
-                    open={layerSelectOpen}
-                    value={selectedLayer}
-                    items={layers}
-                    setOpen={setLayerSelectOpen}
-                    setValue={setSelectedLayer}
-                    setItems={setLayers}
-                    loading={loading}
-                    activityIndicatorColor="#5188E3"
-                    searchable={true}
-                    searchPlaceholder="Search layers"
-                    onChangeValue={onChange}
-                    zIndex={1000}
-                    zIndexInverse={3000}
-                    />
-                </View>
-            )}/>
-        </View>
+
+        <DropDownPicker
+        style={styles.dropdown}
+        open={layerSelectOpen}
+        value={selectedLayer}
+        items={layers}
+        setOpen={setLayerSelectOpen}
+        setValue={setSelectedLayer}
+        setItems={setLayers}
+        loading={loading}
+        activityIndicatorColor="#5188E3"
+        searchable={true}
+        searchPlaceholder="Search layers"
+        onChangeValue={(selected)=>{
+            setSketchPickerColor({
+                r: images[selected|0].color[0],
+                g:images[selected|0].color[1],
+                b: images[selected|0].color[2],
+                a: "1",
+            })
+        }}
+        zIndex={1000}
+        zIndexInverse={3000}
+        />
 
         <div className="sketchpicker">
             <Text style={{color:'#ff0000'}}>{images[selectedLayer].name}</Text>
