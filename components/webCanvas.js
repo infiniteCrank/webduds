@@ -50,9 +50,9 @@ const FilterImage = ({ imageSource,imageColor }) => {
 export default function WebCanvas() {
 
     const [images, setImages] = useState([
-        {image:require("../assets/images/wizduds/Wizduds-Artwork-1.png"),color:[25,139,220],name:"sky"},
-        {image:require("../assets/images/wizduds/Wizduds-Artwork-2.png"),color:[255,255,255],name:"clouds"},
-        {image:require("../assets/images/wizduds/Wizduds-Artwork-3.png"),color:[171,112,29],name:"ship"},
+        {image:require("../assets/images/wizduds/Wizduds-Artwork-1.png"),color:[],name:"sky"},
+        {image:require("../assets/images/wizduds/Wizduds-Artwork-2.png"),color:[],name:"clouds"},
+        {image:require("../assets/images/wizduds/Wizduds-Artwork-3.png"),color:[],name:"ship"},
         {image:require("../assets/images/wizduds/Wizduds-Artwork-4.png"),color:[],name:"logo"},
         {image:require("../assets/images/wizduds/Wizduds-Artwork-5.png"),color:[],name:"skin"},
         {image:require("../assets/images/wizduds/Wizduds-Artwork-6.png"),color:[],name:"shoes"},
