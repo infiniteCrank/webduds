@@ -1,5 +1,5 @@
 import { Stage, Layer, Image, Rect} from 'react-konva';
-import {  StyleSheet, View, Text} from 'react-native';
+import {  StyleSheet, Text, Pressable} from 'react-native';
 import useImage from "use-image";
 import Konva from 'konva';
 import { useEffect, useRef, useState } from 'react';
@@ -7,10 +7,11 @@ import { SketchPicker } from 'react-color';
 import DropDownPicker from "react-native-dropdown-picker";
 import {useForm, Controller} from 'react-hook-form';
 
+const imageRefs = [];
 const FilterImage = ({ imageSource,imageColor }) => {
     const [image] = useImage(imageSource);
     const imageRef = useRef();
-
+    imageRefs.push(imageRef)
     useEffect(() => {
         if (image) {
             imageRef.current.cache();
@@ -91,7 +92,13 @@ export default function WebCanvas() {
             return { label: i.name, value: layerNumber };
         })
     });
-    const { handleSubmit, control } = useForm();
+
+    const resetLayerColor= ()=>{
+        images[selectedLayer].color = [];
+        imageRefs[selectedLayer].current.clearCache();
+        imageRefs[selectedLayer].current.filters([]);
+        imageRefs[selectedLayer].current.cache();
+    }
 
     return (
     <div>
@@ -159,6 +166,12 @@ export default function WebCanvas() {
                 color={(sketchPickerColor)}
             />
         </div>
+
+        <div>
+        <Pressable style={styles.button} onPress={resetLayerColor}>
+            <Text style={styles.text}>Reset {images[selectedLayer].name}</Text>
+        </Pressable>
+        </div>
     </div>
     );
 }
@@ -216,6 +229,22 @@ const styles = StyleSheet.create({
         textAlign: "center",
         textDecorationLine: "underline",
         color: "#758580",
+    },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: 'black',
+    },
+    text: {
+        fontSize: 16,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'white',
     },
 });
 
